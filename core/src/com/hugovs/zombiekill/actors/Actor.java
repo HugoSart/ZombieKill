@@ -1,9 +1,13 @@
 package com.hugovs.zombiekill.actors;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
@@ -50,8 +54,14 @@ public abstract class Actor {
         return rectangle.getHeight();
     }
 
+    public void setScale(float scale) {
+        sprite.setScale(scale);
+        rectangle.height = rectangle.height * scale;
+        rectangle.width = rectangle.width * scale;
+    }
+
     public void draw(Batch batch) {
-        sprite.draw(batch);
+        batch.draw(sprite, rectangle.x , rectangle.y, rectangle.width, rectangle.height);
     }
 
     public void update(float delta) {}

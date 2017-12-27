@@ -15,11 +15,13 @@ public class Textures {
     public final Texture CHARACTER;
     public final Texture ZOMBIE;
     public final Texture BULLET;
+    public final Texture ZOMBIES_SHEET;
 
     private Textures() {
         CHARACTER = new Texture("character.png");
         ZOMBIE = new Texture("zombie.png");
         BULLET = new Texture("bullet.png");
+        ZOMBIES_SHEET = new Texture("zombies_sheet.png");
     }
 
     public static Textures loadTextures() {
@@ -39,6 +41,7 @@ public class Textures {
         instance.CHARACTER.dispose();
         instance.ZOMBIE.dispose();
         instance.BULLET.dispose();
+        instance.ZOMBIES_SHEET.dispose();
     }
 
 }

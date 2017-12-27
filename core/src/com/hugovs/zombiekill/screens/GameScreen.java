@@ -1,18 +1,17 @@
-package com.hugovs.zombiekill;
+package com.hugovs.zombiekill.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.hugovs.zombiekill.ZombieKill;
 import com.hugovs.zombiekill.actors.Actor;
 import com.hugovs.zombiekill.actors.Killer;
-import com.hugovs.zombiekill.actors.Zombie;
+import com.hugovs.zombiekill.actors.zombies.StrongZombie;
+import com.hugovs.zombiekill.actors.zombies.WeakZombie;
+import com.hugovs.zombiekill.actors.zombies.Zombie;
 import com.hugovs.zombiekill.textures.Textures;
 
 /**
@@ -30,6 +29,8 @@ public class GameScreen extends ScreenAdapter {
     private Killer killer;
 
     private long lastDropTime;
+
+
 
     public GameScreen(ZombieKill game) {
         this.game = game;
@@ -52,7 +53,10 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000) {
-            actorHolder.addActor(new Zombie(Gdx.graphics.getWidth(), MathUtils.random(Gdx.graphics.getHeight())));
+            Zombie zombie = new StrongZombie(Gdx.graphics.getWidth(), MathUtils.random(Gdx.graphics.getHeight()));
+            if (zombie.getY() + zombie.getHeight() >= Gdx.graphics.getHeight())
+                zombie.setY(zombie.getY() - zombie.getHeight());
+            actorHolder.addActor(zombie);
             lastDropTime = TimeUtils.nanoTime();
         }
 
