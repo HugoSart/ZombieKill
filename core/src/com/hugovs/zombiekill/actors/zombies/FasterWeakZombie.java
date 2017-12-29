@@ -1,10 +1,10 @@
 package com.hugovs.zombiekill.actors.zombies;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.hugovs.zombiekill.textures.Textures;
 import com.hugovs.zombiekill.utils.Utils;
 
 /**
@@ -12,17 +12,17 @@ import com.hugovs.zombiekill.utils.Utils;
  * Date: 29/12/2017<br/>
  * Time: 00:27<br/>
  */
-public class WeakZombie extends Zombie {
+public class FasterWeakZombie extends Zombie {
 
     private Animation<TextureRegion> walkAnimation;
     private float stateTime;
 
-    public WeakZombie() {
-        super(24f, 1f);
+    public FasterWeakZombie() {
+        super(17f, 2f);
         stateTime = 0f;
-        walkAnimation = Utils.createZombieWalkAnimation(0, 3);
+        walkAnimation = Utils.createZombieWalkAnimation(0, 7);
         TextureRegion tex = walkAnimation.getKeyFrames()[0];
-        setBounds(tex.getRegionX(),tex.getRegionY(),tex.getRegionWidth(),tex.getRegionHeight());
+        setBounds(0, 0, tex.getRegionWidth(), tex.getRegionHeight());
     }
 
     @Override

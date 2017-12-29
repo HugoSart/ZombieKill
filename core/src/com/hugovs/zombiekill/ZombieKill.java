@@ -1,27 +1,22 @@
 package com.hugovs.zombiekill;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hugovs.zombiekill.screens.GameScreen;
 
 public class ZombieKill extends Game {
 
-	public SpriteBatch batch;
-	
+	private Screen screen;
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		setScreen(new GameScreen(this));
+		screen = new GameScreen();
+		setScreen(screen);
 	}
 
 	@Override
-	public void render () {
-		super.render();
+	public void dispose() {
+		screen.dispose();
 	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-	}
-
 }

@@ -1,13 +1,15 @@
 package com.hugovs.zombiekill.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.utils.Pool;
-import com.hugovs.zombiekill.screens.GameScreen;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.hugovs.zombiekill.actors.bullet.Bullet;
+import com.hugovs.zombiekill.actors.bullet.SimpleBullet;
 import com.hugovs.zombiekill.textures.Textures;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
  * User: hugo_<br/>
@@ -16,37 +18,47 @@ import com.hugovs.zombiekill.textures.Textures;
  */
 public class Killer extends Actor {
 
-    private GameScreen screen;
+    private TextureRegion textureRegion;
 
-    private InputProcessor inputProcessor;
+    public Killer() {
+        textureRegion = new TextureRegion(Textures.getInstance().CHARACTER);
+        setBounds(textureRegion.getRegionX(), textureRegion.getRegionY(), textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
+        setScale(.7f);
+    }
 
-    public Killer(float x, float y, final GameScreen screen) {
-
-        super(Textures.getInstance().CHARACTER, x, y);
-        this.screen = screen;
-        setScale(0.7f);
-
-        inputProcessor = new InputAdapter() {
-
+    @Override
+    protected void setStage(Stage stage) {
+        super.setStage(stage);
+        stage.addListener(new InputListener() {
             @Override
-            public boolean mouseMoved(int screenX, int screenY) {
-                setY(Gdx.graphics.getHeight() - screenY);
+            public boolean mouseMoved(InputEvent event, float x, float y) {
+                addAction(moveTo(getX(), y));
                 return true;
             }
 
             @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (Gdx.input.justTouched()) {
-                    screen.actorHolder.addActor(new Bullet(getX(), getY(), screen));
-                    return true;
+                    Bullet bullet = shot();
+                    bullet.addAction(Actions.moveBy(getStage().getWidth(), 0, 1f / bullet.getSpeed()));
+                    getStage().addActor(bullet);
                 }
-                return false;
+                return true;
             }
+        });
 
-        };
+    }
 
-        Gdx.input.setInputProcessor(inputProcessor);
+    private Bullet shot() {
+        Bullet bullet = new SimpleBullet();
+        bullet.setPosition(getX() + 120,getY() + getHeight() * 0.3f - (bullet.getHeight() * bullet.getScaleY()) / 2);
+        return bullet;
+    }
 
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(),
+                getScaleX(), getScaleY(), getRotation());
     }
 
 }

@@ -1,7 +1,6 @@
 package com.hugovs.zombiekill.textures;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.sun.org.apache.xml.internal.security.signature.ReferenceNotInitializedException;
 
 /**
  * User: hugo_<br/>
@@ -14,14 +13,18 @@ public class Textures {
 
     public final Texture CHARACTER;
     public final Texture ZOMBIE;
-    public final Texture BULLET;
+    public final Texture SIMPLE_BULLET;
+    public final Texture BULLET_BILL;
     public final Texture ZOMBIES_SHEET;
+    public final Texture VALLE;
 
     private Textures() {
         CHARACTER = new Texture("character.png");
         ZOMBIE = new Texture("zombie.png");
-        BULLET = new Texture("bullet.png");
+        SIMPLE_BULLET = new Texture("simple_bullet.png");
+        BULLET_BILL = new Texture("bullet_bill.png");
         ZOMBIES_SHEET = new Texture("zombies_sheet.png");
+        VALLE = new Texture("valle.png");
     }
 
     public static Textures loadTextures() {
@@ -40,8 +43,10 @@ public class Textures {
             throw new RuntimeException("Textures are not loaded.");
         instance.CHARACTER.dispose();
         instance.ZOMBIE.dispose();
-        instance.BULLET.dispose();
+        instance.SIMPLE_BULLET.dispose();
+        instance.BULLET_BILL.dispose();
         instance.ZOMBIES_SHEET.dispose();
+        instance.VALLE.dispose();
     }
 
 }
